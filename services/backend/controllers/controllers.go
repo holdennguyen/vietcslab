@@ -147,7 +147,7 @@ func ProductViewerAdmin() gin.HandlerFunc {
 
 }
 
-func searchProduct() gin.HandlerFunc {
+func SearchProduct() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var productList []models.Product
 		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
@@ -180,7 +180,7 @@ func searchProduct() gin.HandlerFunc {
 	}
 }
 
-func searchProductByQuery() gin.HandlerFunc {
+func SearchProductByQuery() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var searchProducts []models.Product
 		queryParam := c.Query("name")
