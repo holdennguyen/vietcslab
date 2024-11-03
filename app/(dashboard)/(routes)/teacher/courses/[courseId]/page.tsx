@@ -12,7 +12,6 @@ import { PriceForm } from "./_components/price-form";
 import { AttachmentForm } from "./_components/attachment-form";
 import { ChaptersForm } from "./_components/chapters-form";
 import { Banner } from "@/components/banner";
-import { Action } from "@radix-ui/react-alert-dialog";
 import { Actions } from "./_components/actions";
 
 const CourseIdPage = async ({
