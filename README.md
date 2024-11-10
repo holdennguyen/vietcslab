@@ -1,4 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Key Features:
+
+Browse & Filter Courses
+Purchase Courses using Stripe
+Mark Chapters as Completed or Uncompleted
+Progress Calculation of each Course
+Student Dashboard
+Teacher mode
+Create new Courses
+Create new Chapters
+Easily reorder chapter position with drag n’ drop
+Upload thumbnails, attachments and videos using UploadThing
+Video processing using Mux
+HLS Video player using Mux
+Rich text editor for chapter description
+Authentication using Clerk
+ORM using Prisma
+MySQL database using Planetscale
 
 ## Getting Started
 
@@ -6,29 +23,71 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Prisma (MongoDB's ORM)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To generate the Prisma client and push the schema to the database, run:
 
-## Learn More
+```bash
+npx prisma generate
+npx prisma db push
+```
 
-To learn more about Next.js, take a look at the following resources:
+To run the seed script, use:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npx ts-node scripts/seed.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+To open Prisma Studio, run:
+
+```bash
+npx prisma studio
+```
+
+Open [http://localhost:5555](http://localhost:5555) with your browser to see the collections.
+
+## Test Stripe Integration in local
+
+1. Download the Stripe CLI and log in with your Stripe account
+
+    ```bash
+    stripe login
+    ```
+
+2. Forward events to your destination
+
+    ```bash
+    stripe listen --forward-to localhost:3000/api/webhook
+    ```
+
+3. Trigger events with the CLI
+
+    ```bash
+    stripe trigger payment_intent.succeeded
+    ```
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Add the following to the `scripts` section of your `package.json` file:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    ```json
+    "postinstall": "prisma generate"
+    ```
+
+2. Integrate your GitHub repository with your Vercel project and update the `.env` file to the Environment Variables of the Vercel project. Deploy the project.
+
+3. After the first successful deployment, update the `NEXT_PUBLIC_APP_URL` environment variable with your Vercel app domain.
+
+4. Configure Stripe Test mode:
+    - Go to the Stripe developer dashboard, navigate to the Event destinations tab.
+    - Add a destination from your account and select all Checkout events.
+    - Input your Vercel app URL as the Webhook endpoint (e.g., `https://*.vercel.app/api/webhook`).
+    - Copy the Signing secret and update the `STRIPE_WEBHOOK_SECRET` environment variable in your Vercel app.
+
+5. Re-deploy the Vercel app without using the existing build cache.
+
+> Use the test credit card number `4242 4242 4242 4242` to simulate a successful payment in Stripe.
