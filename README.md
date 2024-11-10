@@ -29,11 +29,26 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Prisma (MongoDB's ORM)
 
+To generate the Prisma client and push the schema to the database, run:
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+To run the seed script, use:
+
+```bash
+npx ts-node scripts/seed.ts
+```
+
+To open Prisma Studio, run:
+
 ```bash
 npx prisma studio
 ```
 
-Open [http://localhost:5555](http://localhost:555) with your browser to see the collections.
+Open [http://localhost:5555](http://localhost:5555) with your browser to see the collections.
 
 ## Test Stripe Integration in local
 
@@ -57,6 +72,22 @@ Open [http://localhost:5555](http://localhost:555) with your browser to see the 
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Add the following to the `scripts` section of your `package.json` file:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    ```json
+    "postinstall": "prisma generate"
+    ```
+
+2. Integrate your GitHub repository with your Vercel project and update the `.env` file to the Environment Variables of the Vercel project. Deploy the project.
+
+3. After the first successful deployment, update the `NEXT_PUBLIC_APP_URL` environment variable with your Vercel app domain.
+
+4. Configure Stripe Test mode:
+    - Go to the Stripe developer dashboard, navigate to the Event destinations tab.
+    - Add a destination from your account and select all Checkout events.
+    - Input your Vercel app URL as the Webhook endpoint (e.g., `https://*.vercel.app/api/webhook`).
+    - Copy the Signing secret and update the `STRIPE_WEBHOOK_SECRET` environment variable in your Vercel app.
+
+5. Re-deploy the Vercel app without using the existing build cache.
+
+> Use the test credit card number `4242 4242 4242 4242` to simulate a successful payment in Stripe.
