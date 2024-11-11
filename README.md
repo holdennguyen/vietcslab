@@ -1,21 +1,20 @@
-Key Features:
+# Key Features
 
-Browse & Filter Courses
-Purchase Courses using Stripe
-Mark Chapters as Completed or Uncompleted
-Progress Calculation of each Course
-Student Dashboard
-Teacher mode
-Create new Courses
-Create new Chapters
-Easily reorder chapter position with drag n’ drop
-Upload thumbnails, attachments and videos using UploadThing
-Video processing using Mux
-HLS Video player using Mux
-Rich text editor for chapter description
-Authentication using Clerk
-ORM using Prisma
-MySQL database using Planetscale
+- Browse & Filter Courses
+- Purchase Courses using Stripe
+- Mark Chapters as Completed or Uncompleted
+- Progress Calculation of each Course
+- Student Dashboard
+- Teacher mode
+- Create new Courses
+- Create new Chapters
+- Easily reorder chapter position with drag n’ drop
+- Upload thumbnails, attachments and videos using UploadThing
+- Video processing using Mux
+- HLS Video player using Mux
+- Rich text editor for chapter description
+- Authentication using Clerk
+- ORM using Prisma
 
 ## Getting Started
 
@@ -39,7 +38,7 @@ npx prisma db push
 To run the seed script, use:
 
 ```bash
-npx ts-node scripts/seed.ts
+node scripts/seed.ts
 ```
 
 To open Prisma Studio, run:
