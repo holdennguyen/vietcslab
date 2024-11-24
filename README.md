@@ -16,6 +16,9 @@
 - Authentication using Clerk
 - ORM using Prisma
 
+## Demo
+[![vietcslab](https://img.youtube.com/vi/PpgIWkTg_a4/0.jpg)](https://youtu.be/PpgIWkTg_a4)
+
 ## Getting Started
 
 First, run the development server:
